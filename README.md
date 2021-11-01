@@ -12,10 +12,15 @@ new Source -> Media Source -> Properties:
 Input: `udp://@224.0.0.1:9999`  
 ## receive on the local network and forward the stream with srt-live-transmit to OBS in the Cloud  
 Again, it is important that srt-live-transmit is started as listener before OBS sends the stream.  
-`C:\srt-live>srt-live-transmit.exe udp://@224.0.0.1:9999?mode=listener srt://xxx.xxx.xxx.xxx:**10000**?mode=caller`  
+`C:\srt-live>srt-live-transmit.exe udp://@224.0.0.1:9999?mode=listener srt://xxx.xxx.xxx.xxx:10000?mode=caller`  
 This does not work. Is port 10000 actually open for incoming UDP traffic?  
 ## Streaming from camera encoders to OBS in the cloud
 SRT: `Caller`  
 Caller Server: `xxx.xxx.xxx.xxx`  
 Caller Port: `10000`  
 latency: `2000` (2 seconds)  
+## Streaming from local OBS to OBS in the cloud
+`srt://xxx.xxx.xxx.xxx:10000?mode=caller`  
+This does not work.  
+
+**tested for a solution with apps4rent.com**  
