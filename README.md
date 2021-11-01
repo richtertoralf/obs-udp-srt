@@ -15,8 +15,13 @@ Input: `udp://@224.0.0.1:9999`
 Again, it is important that srt-live-transmit is started as listener before OBS sends the stream.  
 `C:\srt-live>srt-live-transmit.exe udp://@224.0.0.1:9999?mode=listener srt://xxx.xxx.xxx.xxx:10000?mode=caller`  
 This does not work. Is port 10000 actually open for incoming UDP traffic?  
-### ffmpeg
+### ffmpeg (transmitter)
 `C:\ffmpeg\bin>ffmpeg.exe -i udp://@224.0.0.1:9999 -c copy -f mpegts "srt://xxx.xxx.xxx.xxx:10000?mode=caller&latency=50000"`  
+### ffmpeg (receiver on nginx rtmp-module - restream server)
+`root@restreamServer-02:/etc/nginx# systemctl cat ffmpeg_srt.service`  
+`ExecStart=/usr/local/bin/ffmpeg -loglevel panic -re -i srt://0.0.0.0:xxxxx?mode=listener -c copy -f flv rtmp://localhost:xxxx/xxaplication-namexx`  
+show Server log  
+`root@restreamServer-02:/etc/nginx# journalctl -f -u ffmpeg_srt.service`  
 ## Streaming from camera encoders to OBS in the cloud
 SRT: `Caller`  
 Caller Server: `xxx.xxx.xxx.xxx`  
