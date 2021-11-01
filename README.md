@@ -6,11 +6,13 @@ setting -> stream -> Server:
 `udp://224.0.0.1:9999` (multicast address on the LAN)  
 ## receive and view with ffplay
 `C:\ffmpeg\bin>ffplay.exe udp://@224.0.0.1:9999`  
+Attention: ffplay must be started first. Only then start the stream with OBS.  
 ## received on the local network on another computer with OBS
 new Source -> Media Source -> Properties:  
 Input: `udp://@224.0.0.1:9999`  
-## receive and forward with srt-live-transmit to OBS in the Cloud
-`C:\srt-live>srt-live-transmit.exe udp://@224.0.0.1:9999?mode=listener srt://xxx.xxx.xxx.xxx:10000?mode=caller`  
+## receive on the local network and forward the stream with srt-live-transmit to OBS in the Cloud  
+Again, it is important that srt-live-transmit is started as listener before OBS sends the stream.  
+`C:\srt-live>srt-live-transmit.exe udp://@224.0.0.1:9999?mode=listener srt://xxx.xxx.xxx.xxx:**10000**?mode=caller`  
 This does not work. Is port 10000 actually open for incoming UDP traffic?  
 ## Streaming from camera encoders to OBS in the cloud
 SRT: `Caller`  
